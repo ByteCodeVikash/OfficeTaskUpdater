@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# OfficeTaskUpdater
+OfficeTaskUpdater is a streamlined project management tool tailored for efficient task tracking and updates in office environments. Utilizing React for the frontend and JavaScript for dynamic functionality, coupled with a Node.js backend supported by MongoDB, it offers a robust solution for teams.
+>>>>>>> ebd8533ef7f7faaa7cefb8ebf6df6a6cb1d34aad
