@@ -1,0 +1,65 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #333;
+}
+
+.illustration {
+  /* Add your illustration image here */
+  background: url('C:\Users\Vikash\OneDrive\Desktop\login_page_recat\my-signup-form\assets\illustration_image_path.jpg.png') no-repeat center center;
+  background-size: cover;
+  height: 500px; /* Adjust size as necessary */
+  width: 300px; /* Adjust size as necessary */
+  margin-right: 50px; /* Adjust spacing as necessary */
+}
+
+.form-container {
+  background: #ececec;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+input {
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #555;
+  color: white;
+}
+
+button:hover {
+  background-color: #666;
+}
+
+.decline-btn {
+  background-color: transparent;
+  color: #333;
+}
+
+/* ...existing styles... */
+
+.signup-status {
+  color: red; /* Jo bhi color aapko sahi lage success ya error ke liye */
+  margin-top: 10px;
+}

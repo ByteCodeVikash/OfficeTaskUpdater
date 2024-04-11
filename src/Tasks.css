@@ -1,0 +1,89 @@
+.task-container {
+    margin-left: 250px; /* Adjust this to match your sidebar width */
+    padding: 20px;
+    width: calc(100% - 250px); /* Adjust this to fill the remaining space next to the sidebar */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box; /* Ensures padding is included in the width */
+  }
+  
+  h1 {
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+  }
+  
+  .tasks {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  .task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.task-details {
+  display: flex;
+  align-items: center;
+}
+
+.task-status {
+  margin: 0 8px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  color: white;
+  font-size: 12px;
+}
+
+.in-progress {
+  background-color: #007bff;
+}
+
+.needs-review {
+  background-color: #ffc107;
+}
+
+.needs-attention {
+  background-color: #dc3545;
+}
+
+.needs-input {
+  background-color: #fd7e14;
+}
+
+.planned {
+  background-color: #28a745;
+}
+
+.task-name {
+  font-size: 14px;
+}
+
+.task-due-date {
+  color: #888;
+  font-size: 12px;
+}
+
+.task-remaining {
+  font-size: 12px;
+}
+
+.overdue {
+  color: #dc3545;
+}

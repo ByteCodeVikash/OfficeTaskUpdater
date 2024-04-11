@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Dashboard from './Dashboard';
+import SignupApp from './login'; // Import SignupApp here
+import Tasks from './Tasks';
+import Teams from './Teams';
+import Myclients from './MyClients';
+import Profile from './Profile'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<><SignupApp /></>} />
+        <Route path="/dashboard" element={<><Sidebar /><Dashboard /></>} />
+        <Route path="/tasks" element={<><Sidebar /><Tasks /></>} />
+        <Route path="/teams" element={<><Sidebar /><Teams /></>} />
+        <Route path="/MyClients" element={<><Sidebar /><Myclients /></>} />
+        <Route path="/Profile" element={<><Sidebar /><Profile /></>} />
+      </Routes>
+    </Router>
   );
 }
+
 
 export default App;

@@ -1,0 +1,51 @@
+/* Assuming that the sidebar has a class named .sidebar */
+.sidebar {
+    /*background-color: #theColorOfYourSidebar; /* Replace with your actual sidebar color */
+    /* Make sure the sidebar extends to the top */
+    padding-top: 0;
+    margin-top: 0;
+    height: 100vh; /* This ensures it takes the full height */
+  }
+  
+  .dashboard {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .main-content {
+    margin-left: 250px; /* Adjust if your sidebar width is different */
+    padding: 20px;
+    background-color: #fff; /* Assuming the main content background is white */
+    /* Remove margin-top if you want the content area to be flush with the top */
+  }
+  
+  .dashboard-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  .card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+  }
+  
+  /* ...rest of your styles... */
+  
+  @media (max-width: 768px) {
+    .main-content {
+      margin-left: 0;
+    }
+  
+    .dashboard-row {
+      flex-direction: column;
+    }
+  
+    /* ...rest of your responsive styles... */
+  }
+  

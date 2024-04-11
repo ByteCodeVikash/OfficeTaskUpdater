@@ -1,0 +1,32 @@
+/* Sidebar.css */
+.menu-item .fa {
+  margin-right: 8px; /* Adjust spacing between icon and text */
+}
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    background-color: #333399;
+    position: fixed;
+    padding-top: 20px;
+  }
+  
+  .menu-item {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .menu-item:hover {
+    background-color: #565699;
+    transition: background-color 0.3s;
+  }
+  
+  /* Styling for bottom links */
+  .bottom-links {
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    width: 100%;
+  }
+  
