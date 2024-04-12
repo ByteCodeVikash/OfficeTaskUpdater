@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 
 const Profile = () => {
@@ -11,6 +11,50 @@ const Profile = () => {
     department: '',
     photo: ''
   });
+
+  const fetchProfile = () => {
+    const empId = 'your_employee_id';  // This should be dynamically determined based on user authentication
+    fetch(`http://localhost:3001/getProfile?userId=${empId}`)
+      .then(response => response.json())
+      .then(data => {
+        setProfile(data);
+        localStorage.setItem('profile', JSON.stringify(data));
+      })
+      .catch(error => {
+        console.error('Error fetching profile:', error);
+      });
+  };
+
+  useEffect(() => {
+    const savedProfile = localStorage.getItem('profile');
+    
+    // Function to check profile existence in database and fetch it
+    const checkAndFetchProfile = (empId) => {
+      fetch(`http://localhost:3001/getProfile?userId=${empId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data) {
+            setProfile(data); // Set profile if found
+          } else {
+            localStorage.removeItem('profile'); // Remove from local storage if not found
+            // Optionally, fetch a new profile or handle the "not found" case
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching profile:', error);
+        });
+    };
+    
+    if (savedProfile) {
+      const profileData = JSON.parse(savedProfile);
+      checkAndFetchProfile(profileData.empId); // Check and fetch profile using the saved empId
+    } else {
+      // If no profile is saved, either prompt for login or handle accordingly
+    }
+  }, []);
+    
+  
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,8 +80,23 @@ const Profile = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
+    fetch('http://localhost:3001/saveProfile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(profile),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Profile saved:', data);
+      localStorage.setItem('profile', JSON.stringify(profile));
+      fetchProfile();  // Re-fetch the profile to ensure UI is updated
+    })
+    .catch(error => {
+      console.error('Error saving profile:', error);
+    });
     setEditMode(false);
-    // Implement save logic
   };
 
   return (
@@ -76,13 +135,6 @@ const Profile = () => {
           ) : (
             <span className="edit-link" onClick={handleToggleEdit}>Edit</span>
           )}
-        </div>
-        <div className="status-section">
-          <span className="status-indicator"></span>
-          Active
-          <span className="local-time">
-            {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-          </span>
         </div>
       </div>
       {editMode ? (
