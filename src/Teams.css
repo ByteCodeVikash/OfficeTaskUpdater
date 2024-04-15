@@ -130,3 +130,11 @@
 
 
 
+
+.edit-btn, .save-btn {
+  margin-left: auto;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: blue;
+}
