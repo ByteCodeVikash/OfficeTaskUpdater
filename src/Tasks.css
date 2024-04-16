@@ -1,89 +1,144 @@
-.task-container {
-    margin-left: 250px; /* Adjust this to match your sidebar width */
-    padding: 20px;
-    width: calc(100% - 250px); /* Adjust this to fill the remaining space next to the sidebar */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-sizing: border-box; /* Ensures padding is included in the width */
-  }
-  
-  h1 {
-    color: #333;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-  }
-  
-  .tasks {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-  }
-  
-  .task {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  }
+.task-board-wrapper {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 20px; /* Create space for the "+ Create a new board" button */
+  margin-left: 250px; /* Sidebar width */
+  position: relative; /* Necessary for correctly positioning the new board button */
+}
 
-.task {
+.task-board {
+  display: flex;
+  flex-grow: 1; /* Allows each task board to grow flexibly */
+  overflow-x: auto; /* Enables horizontal scrolling if there are many boards */
+}
+
+.column {
+  flex: 0 0 250px; /* Fixes the width of each column to 250px, no growth or shrinkage */
+  margin-right: 20px; /* Spacing between columns */
+  background-color: #fff; /* Background color of columns */
+  border-radius: 3px; /* Border radius */
+  padding: 10px; /* Padding inside columns */
+}
+
+.column-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid lightgrey; /* Bottom border */
+  padding-bottom: 10px; /* Padding at the bottom */
 }
 
-.task-details {
-  display: flex;
-  align-items: center;
+.task {
+  background-color: #f0f0f0; /* Background color of tasks */
+  border-radius: 3px; /* Border radius */
+  padding: 10px; /* Padding inside tasks */
+  margin-bottom: 10px; /* Spacing between tasks */
+  cursor: pointer; /* Cursor style */
+  display: flex; /* Displays tasks as flex items */
+  align-items: center; /* Aligns items vertically */
+  justify-content: space-between; /* Space between task content and icons */
 }
 
-.task-status {
-  margin: 0 8px;
-  padding: 2px 8px;
-  border-radius: 12px;
-  color: white;
-  font-size: 12px;
+.add-column {
+  background-color: #fff; /* Background color of add column button */
+  margin-right: 20px; /* Same margin as columns */
+  border-radius: 3px; /* Border radius */
+  width: 250px; /* Same width as columns */
+  padding: 10px; /* Padding inside add column button */
+  border: none; /* No border */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Box shadow */
+  display: flex; /* Displays button as flex item */
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
+  cursor: pointer; /* Cursor style */
 }
 
-.in-progress {
-  background-color: #007bff;
+.add-column:hover {
+  background-color: #f9f9f9; /* Hover background color */
 }
 
-.needs-review {
-  background-color: #ffc107;
+.add-column::before {
+  content: "+"; /* Plus sign content */
+  font-size: 24px; /* Font size */
+  color: #5aac44; /* Color */
+  margin-right: 8px; /* Margin between plus sign and text */
 }
 
-.needs-attention {
-  background-color: #dc3545;
+.add-column span {
+  font-weight: bold;
+  color: #333; /* Text color */
 }
 
-.needs-input {
-  background-color: #fd7e14;
+button {
+  border: none; /* No border */
+  background-color: #5aac44; /* Background color */
+  color: white; /* Text color */
+  border-radius: 3px; /* Border radius */
+  padding: 5px 10px; /* Padding */
+  cursor: pointer; /* Cursor style */
 }
 
-.planned {
-  background-color: #28a745;
+button:hover {
+  background-color: #519839; /* Hover background color */
 }
 
-.task-name {
-  font-size: 14px;
+.task.completed {
+  text-decoration: line-through; /* Strikethrough for completed tasks */
+  color: grey; /* Color for completed tasks */
 }
 
-.task-due-date {
-  color: #888;
-  font-size: 12px;
+.completed {
+  color: #a9a9a9; /* Color for completed tasks */
+  text-decoration: line-through; /* Strikethrough for completed tasks */
 }
 
-.task-remaining {
-  font-size: 12px;
+.fa-pencil-alt,
+.fa-trash {
+  margin-left: 5px; /* Margin between icons */
+  cursor: pointer; /* Cursor style */
 }
 
-.overdue {
-  color: #dc3545;
+.fa-trash {
+  color: red; /* Color of trash icon */
+}
+
+.fa-pencil-alt {
+  color: #4caf50; /* Color of pencil icon */
+}
+
+.task input[type="checkbox"] {
+  margin-right: 10px; /* Margin between checkbox and task content */
+}
+
+.task-board-header {
+  position: relative; /* Relative positioning */
+  display: flex; /* Display as flex container */
+  justify-content: space-between; /* Space between items */
+  align-items: center; /* Align items vertically */
+  padding: 0 20px; /* Padding */
+  margin-left: 250px; /* Sidebar width */
+  margin-right: 20px; /* Margin on the right */
+  margin-bottom: 20px; /* Margin at the bottom */
+}
+
+.create-board-button {
+  position: absolute; /* Absolute positioning */
+  top: 20px; /* Distance from the top */
+  right: 20px; /* Distance from the right */
+  padding: 10px 20px; /* Padding */
+  display: flex; /* Display as flex container */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  cursor: pointer; /* Cursor style */
+  background-color: #5aac44; /* Background color */
+  color: white; /* Text color */
+  border-radius: 3px; /* Border radius */
+  font-weight: bold; /* Bold text */
+  z-index: 1000; /* z-index */
+}
+
+.create-board-button:hover {
+  background-color: #519839; /* Hover background color */
 }

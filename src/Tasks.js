@@ -1,33 +1,153 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaPencilAlt, FaTrash } from 'react-icons/fa';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import './Tasks.css';
 
-const tasks = [
-  { name: 'Marketing strategy', status: 'in-progress', dueDate: '4 d', remaining: '-04:00' },
-  { name: 'New contract template', status: 'needs-review', dueDate: 'Tomorrow', remaining: '-03:30' },
-  { name: 'New estimation for Fineline Inc. project', status: 'needs-attention', dueDate: 'Sat, 12/12', remaining: '00:00' },
-  { name: 'Quarter budget analysis', status: 'needs-input', dueDate: 'Sat, 19/12', remaining: '00:00' },
-  { name: 'Launch marketing campaign', status: 'in-progress', dueDate: 'Mon, 11/01/2021', remaining: '00:00' },
-  { name: 'Planning and data collection', status: 'planned', dueDate: '3:20', remaining: '+01:10' },
-];
+const initialColumns = {
+  'High Priority': [
+    { id: 1, content: 'Task 1', completed: false },
+    { id: 2, content: 'Task 2', completed: false },
+  ],
+  // Define initial tasks for other priorities if needed
+};
 
 const Tasks = () => {
+  const [columns, setColumns] = useState(initialColumns);
+
+  const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const { source, destination } = result;
+
+    if (source.droppableId === destination.droppableId) {
+      const updatedTasks = reorder(
+        columns[source.droppableId],
+        source.index,
+        destination.index
+      );
+
+      setColumns({
+        ...columns,
+        [source.droppableId]: updatedTasks,
+      });
+    } else {
+      // Logic to move tasks between different columns
+      const sourceTasks = Array.from(columns[source.droppableId]);
+      const destinationTasks = Array.from(columns[destination.droppableId]);
+      const [removed] = sourceTasks.splice(source.index, 1);
+      destinationTasks.splice(destination.index, 0, removed);
+
+      setColumns({
+        ...columns,
+        [source.droppableId]: sourceTasks,
+        [destination.droppableId]: destinationTasks,
+      });
+    }
+  };
+
+  const addTask = (column) => {
+    const taskName = prompt('New Task:');
+    if (taskName) {
+      const newTask = { id: Date.now(), content: taskName, completed: false };
+      setColumns({
+        ...columns,
+        [column]: [...columns[column], newTask]
+      });
+    }
+  };
+
+  const deleteTask = (columnKey, taskId) => {
+    const updatedTasks = columns[columnKey].filter(task => task.id !== taskId);
+    setColumns({ ...columns, [columnKey]: updatedTasks });
+  };
+
+  const editTask = (columnKey, task) => {
+    const newContent = prompt('Edit Task:', task.content);
+    if (newContent !== null) {
+      const updatedTasks = columns[columnKey].map(t => {
+        if (t.id === task.id) {
+          return { ...t, content: newContent };
+        }
+        return t;
+      });
+      setColumns({ ...columns, [columnKey]: updatedTasks });
+    }
+  };
+
+  const toggleCompleteTask = (columnKey, task) => {
+    const updatedTasks = columns[columnKey].map(t => {
+      if (t.id === task.id) {
+        return { ...t, completed: !t.completed };
+      }
+      return t;
+    });
+    setColumns({ ...columns, [columnKey]: updatedTasks });
+  };
+
+  const addColumn = () => {
+    const columnName = prompt('New Column Name:');
+    if (columnName) {
+      setColumns({ ...columns, [columnName]: [] });
+    }
+  };
+
   return (
-    <div className="task-container">
-      <h1>High Priority</h1>
-      <div className="tasks">
-        {tasks.map((task, index) => (
-          <div key={index} className="task">
-            <div className="task-details">
-              <input type="checkbox" />
-              <span className={`task-status ${task.status}`}>{task.status.replace('-', ' ')}</span>
-              <span className="task-name">{task.name}</span>
-            </div>
-            <span className="task-due-date">{task.dueDate}</span>
-            <span className={`task-remaining ${task.remaining.startsWith('-') ? 'overdue' : ''}`}>{task.remaining}</span>
-          </div>
-        ))}
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="task-board-wrapper">
+        <div className="task-board">
+          {Object.keys(columns).map((columnKey, columnIndex) => (
+            <Droppable droppableId={columnKey} key={columnKey}>
+              {(provided, snapshot) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="column"
+                >
+                  <div className="column-header">
+                    {columnKey} ({columns[columnKey].length} tasks)
+                    <button onClick={() => addTask(columnKey)}>+</button>
+                  </div>
+                  {columns[columnKey].map((task, taskIndex) => (
+                    <Draggable key={task.id} draggableId={String(task.id)} index={taskIndex}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className={`task ${task.completed ? 'completed' : ''}`}
+                        >
+                          <input 
+                            type="checkbox" 
+                            checked={task.completed} 
+                            onChange={() => toggleCompleteTask(columnKey, task)} 
+                          />
+                          <span>{task.content}</span>
+                          <FaPencilAlt onClick={() => editTask(columnKey, task)} />
+                          <FaTrash onClick={() => deleteTask(columnKey, task.id)} />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          ))}
+        </div>
+        <button className="create-board-button" onClick={addColumn}>
+          + Create a new board
+        </button>
       </div>
-    </div>
+    </DragDropContext>
   );
 };
 
