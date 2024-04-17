@@ -1,58 +1,150 @@
 .dashboard-container {
-    font-family: 'Arial', sans-serif;
-    max-width: 800px; /* Or the width according to your design */
-    margin: auto;
-    padding: 20px;
-    box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  margin-left: 250px; /* Sidebar ke width ke anusaar */
+  width: calc(100% - 250px); /* Sidebar ke width ko hata kar baki ka space */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.dashboard-header h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.priority-tasks {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.task-checkbox {
+  margin-right: 10px;
+}
+
+.task-title {
+  flex-grow: 1;
+}
+
+.task-status {
+  margin: 0 8px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  color: white;
+  font-size: 12px;
+}
+
+.in-progress {
+  background-color: #007bff;
+}
+
+.needs-review {
+  background-color: #ffc107;
+}
+
+.needs-attention {
+  background-color: #dc3545;
+}
+
+.needs-input {
+  background-color: #fd7e14;
+}
+
+.task-due-date {
+  color: #888;
+  font-size: 12px;
+}
+
+.task-remaining {
+  font-size: 12px;
+}
+
+.overdue {
+  color: #dc3545;
+}
+
+.analytics-and-calendar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-analytics, .calendar {
+  width: calc(50% - 10px);
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.dashboard-footer {
+  text-align: center;
+}
+
+.reports-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin-left: 0; /* Mobile view me sidebar nahi hoga */
+    width: 100%; /* Pura screen width le lega */
   }
   
-  .dashboard-header h1 {
-    text-align: center;
-    margin-bottom: 20px;
+  .analytics-and-calendar {
+    flex-direction: column;
   }
-  
-  .dashboard-content .priority-tasks,
-  .dashboard-content .analytics-container > article {
-    background: #f0f0f0;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+
+  .task-analytics, .calendar {
+    width: 100%;
   }
-  
-  .analytics-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .analytics-container > article {
-    width: calc(50% - 10px); /* Adjust width to account for margin */
-  }
-  
-  .dashboard-footer {
-    text-align: center;
-  }
-  
-  .reports-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .analytics-container {
-      flex-direction: column;
-    }
-  
-    .analytics-container > article {
-      width: 100%;
-    }
-  }
-  
-  /* Add additional styling as needed to match your design */
-  
+}
+
+.chart-placeholder, .calendar-placeholder {
+  height: 200px; /* Set a height for the placeholders */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eaeaea;
+  border-radius: 8px;
+}
+
+/* Styles for the React Calendar */
+.react-calendar {
+  width: 100%; /* Ensure the calendar takes full width of its parent container */
+  border: none; /* Remove any borders that might be applied globally */
+  font-family: Arial, sans-serif; /* Set a specific font if required */
+}
+
+.react-calendar__tile {
+  max-width: none; /* Remove any max-width that might be shrinking the tiles */
+}
+
+.react-calendar__navigation button {
+  color: #333; /* Adjust the color to match your design */
+  font-size: 16px; /* Increase font size for better readability */
+}
+
+.react-calendar__month-view__days__day {
+  color: #333; /* Adjust the text color to match your design */
+}
+
+/* Add additional styles for the calendar elements such as navigation arrows, weekdays, etc., according to your design needs. */
